@@ -24,7 +24,7 @@ class EmployeeRepository {
     await employeeDto.update(item.toMap(), item.id ?? 0);
   }
 
-  Future delete(Employee item) async {
+  Future<int> delete(Employee item) async {
     return await employeeDto.delete(item.id ?? 0);
   }
 }

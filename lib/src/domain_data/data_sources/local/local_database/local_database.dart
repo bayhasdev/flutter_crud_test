@@ -11,32 +11,29 @@ class LocalDatabase {
   LocalDatabase._internal();
 
   factory LocalDatabase({int? dbVersion}) {
-    if (dbVersion != null) {
-      _inst._dbVersion = dbVersion;
-    }
-
+    _inst._dbVersion = dbVersion ?? 1;
     return _inst;
   }
 
   final String dbName = 'test.db';
   late String databasePath;
-  late Database _database;
+  Database? _database;
 
   late int _dbVersion;
 
   Future<Database> get database async {
-    if (_database.isOpen) {
-      return _database;
+    if (_database != null && _database!.isOpen) {
+      return _database!;
     }
     return await initialise();
   }
 
   Future close() async {
-    _database.close();
+    _database?.close();
   }
 
   Future initialise() async {
-    debugPrint('//////// databse is initialiseing');
+    debugPrint('//////// databse is initializing');
 
     String databaseDir = await getDatabasesPath();
     databasePath = join(databaseDir, dbName);
@@ -50,7 +47,7 @@ class LocalDatabase {
           await temp(db);
         },
         onCreate: (Database db, int version) async {
-          // debugPrint('=================================================== database onCreate : ${db.path}');
+          debugPrint('=================================================== database onCreate : ${db.path}');
           await createsTables(db);
         },
         onConfigure: (db) {
@@ -63,6 +60,7 @@ class LocalDatabase {
           // debugPrint('=================database onUpgrade : ${db.path} | oldVersion : $oldVersion | newVersion : $newVersion ');
         },
       );
+      return _database;
     } catch (err) {
       debugPrint('xxxxxxxxxxxxxxxx ${err.toString()}');
       throw Exception('fiald to open database connection');

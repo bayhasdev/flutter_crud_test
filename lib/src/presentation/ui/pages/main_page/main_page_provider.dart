@@ -1,18 +1,26 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_crud_test/src/core/utils/global_var.dart';
+import 'package:flutter_crud_test/src/domain_data/data/models/employee.dart';
+import 'package:flutter_crud_test/src/domain_data/repositories/employee_repository.dart';
 import '../../../utils/providers/base_provider.dart';
 
-class MainPageProvider extends BaseProvider {
-  Widget homeBody = const SizedBox();
-  String pageTitle = '';
-  int selectedIndex = 0;
+class MainPageProvider extends BaseProvider<Employee> {
+  EmployeeRepository _repository;
 
-  void drawerHandler(Widget page, String title) {
-    homeBody = page;
-    pageTitle = title;
+  MainPageProvider(this._repository) {
+    GlobalVar.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+    getDate();
   }
 
-  void onItemTapped(int index) {
-    selectedIndex = index;
-    notifyListeners();
+  Future getDate() async {
+    loadBaseData(loadBody: () async {
+      dataList = await _repository.getAccounts();
+    });
+  }
+
+  Future delete(Employee employee) async {
+    loadBaseData(loadBody: () async {
+      var res = await _repository.delete(employee);
+      if (res > 0) getDate();
+    });
   }
 }

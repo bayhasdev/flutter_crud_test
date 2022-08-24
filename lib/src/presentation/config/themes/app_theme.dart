@@ -18,7 +18,7 @@ class AppTheme {
       labelText: lable,
       hintText: hint,
       isDense: true,
-      contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
       focusColor: kPrimaryColor,
     );
   }
