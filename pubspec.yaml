@@ -26,17 +26,19 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   flutter:
-    sdk: flutter 
+    sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_riverpod: ^1.0.4 
-  google_fonts: ^3.0.1 
+  flutter_riverpod: ^1.0.4
+  google_fonts: ^3.0.1
   intl: ^0.17.0
-  intl_phone_number_input: ^0.7.0+2 
-  shared_preferences: ^2.0.15 
+  intl_phone_number_input: ^0.7.0+2
+  path_provider: ^2.0.11
+  shared_preferences: ^2.0.15
+  sqflite: ^2.0.3+1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.3
